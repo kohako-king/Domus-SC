@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro de Administrador</title>
+  <link rel="stylesheet" href="cadastroADM.css">
+</head>
+
+<body>
+  <header class="cabecario">
+    <div class="logo-cabecario">
+      <h1>Domus SC — Administrador</h1>
+    </div>
+  </header>
+
+  <main class="boxlogin">
+    <h2 class="titulo">Criar Administrador</h2>
+
+    <form id="adminForm" novalidate>
+      <div class="form-group">
+        <label for="email">Email do administrador:</label>
+        <input type="email" id="email" class="input-field" placeholder="Digite o email" required>
+        <div class="error" id="emailError"></div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Senha:</label>
+        <input type="password" id="password" class="input-field" placeholder="Digite a senha" required>
+        <div class="error" id="passwordError"></div>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">Confirmar senha:</label>
+        <input type="password" id="confirmPassword" class="input-field" placeholder="Confirme a senha" required>
+        <div class="error" id="confirmPasswordError"></div>
+      </div>
+
+      <button type="submit">Criar Administrador</button>
+
+      <div class="success-message hidden" id="successMessage"></div>
+    </form>
+
+  </main>
+
+  <script src="cadastroADM.js"></script>
+</body>
+</html>

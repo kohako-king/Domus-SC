@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Domus SC</title>
+  <link rel="stylesheet" href="../estilo/estilo.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+</head>
+
+<body>
+  <header>
+    <h1>Domus SC</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html" class="pagina-ativa"></a></li>
+        <li><a href="artistas.html">Artistas</a></li>
+
+        <!-- Botão de cadastro/login -->
+        <li id="botaoCadastro"><a href="cadastro.html"><i class="bi bi-person-circle"></i></a></li>
+
+        <!-- Central de Conta (aparece após login) -->
+        <li id="centralConta" class="hidden">
+          <a id="botaoConta"><i class="bi bi-person-fill-gear"></i></a>
+          <div id="menuConta" class="menu-conta hidden">
+            <ul>
+              <li id="verPerfil"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                  class="bi bi-person-fill" viewBox="0 0 16 16">
+                  <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                </svg> Ver perfil</li>
+              <li id="trocarConta"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                  class="bi bi-people" viewBox="0 0 16 16">
+                  <path
+                    d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1zm-7.978-1L7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002-.014.002zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0M6.936 9.28a6 6 0 0 0-1.23-.247A7 7 0 0 0 5 9c-4 0-5 3-5 4q0 1 1 1h4.216A2.24 2.24 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816M4.92 10A5.5 5.5 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0m3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4" />
+                </svg></i> Trocar de conta</li>
+              <li id="deletarConta"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                  class="bi bi-trash3" viewBox="0 0 16 16">
+                  <path
+                    d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5" />
+                </svg> Deletar conta</li>
+              <li id="sairConta"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                  class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd"
+                    d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z" />
+                  <path fill-rule="evenodd"
+                    d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z" />
+                </svg> Sair</li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </nav>
+
+  </header>
+
+  <section class="banner">
+    <!-- Seção de destaque/banner -->
+    <h2>Obras de arte Catarinense</h2>
+    <!-- Subtítulo -->
+    <p>Bem-vindo ao Domus, o lar da arte catarinense!</p>
+    <!-- Texto de introdução -->
+  </section>
+  <section id="bannerIntermediario" class="bannerIntermediario">
+    <div class="fundo-animado"></div>
+    <!-- Camada de imagens animadas -->
+    <div class="conteudo-banner">
+      <div class="logo">
+        <img src="../imageFIGURE/logoDomus-sc.webp" />
+      </div>
+      <h2>Descubra o Domus SC</h2>
+      <p>Explore, inspire-se e compartilhe arte catarinense com o mundo.</p>
+    </div>
+  </section>
+  <section class="banner2">
+    <h2>Essência de Santa Catarina</h2>
+    <p>Cada obra reflete o espírito do litoral e da serra: cores que respiram, histórias que florescem, emoções que se
+      eternizam na tela.</p>
+  </section>
+  <section id="produtos" class="produtos">
+    <!-- Seção de produtos -->
+    <h3>Mais vistas</h3>
+    <!-- Subtítulo -->
+    <div class="cards">
+      <!-- Container para os cards de produtos -->
+      <article class="card">
+        <!-- Um card de produto -->
+        <img src="../imageFIGURE/coruja.jpg" />
+        <!-- Imagem do produto -->
+        <div class="card-content">
+          <!-- Conteúdo do card -->
+          <h4>Majestosa coruja-eurasiática</h4>
+          <!-- Nome do produto -->
+          <p>A42 × 27,7cm.</p>
+          <!-- Dimensão -->
+          <p>Autor(a): Pablo Henrique Serafim.</p>
+
+          <p>
+            Uma representação de uma coruja vista no cotidiano de um camponês.
+          </p>
+          <!-- Descrição -->
+        </div>
+      </article>
+
+      <article class="card">
+        <!-- Um card de produto -->
+        <img src="../imageFIGURE/A beleza feminina.jfif" />
+        <!-- Imagem do produto -->
+        <div class="card-content">
+          <!-- Conteúdo do card -->
+          <h4>A beleza feminina</h4>
+          <!-- Nome do produto -->
+          <p>A100 × 130 cm.</p>
+          <!-- Dimensão -->
+          <p>Autor(a): Sônia Ribeiro.</p>
+          <p>
+            Uma ode à essência da mulher, retratada em formas suaves e tons que evocam sensibilidade, força e mistério.
+            Cada traço revela a delicada dualidade entre vulnerabilidade e poder, celebrando a natureza feminina em sua
+            plenitude.
+          </p>
+          <!-- Descrição -->
+        </div>
+      </article>
+
+      <article class="card">
+        <!-- Um card de produto -->
+        <img src="../imageFIGURE/A violinista.jfif" />
+        <!-- Imagem do produto -->
+        <div class="card-content">
+          <!-- Conteúdo do card -->
+          <h4>A violinista</h4>
+          <!-- Nome do produto -->
+          <p>A110 × 80 cm.</p>
+          <!-- Dimensão -->
+          <p>Autor(a):Sônia Ribeiro.</p>
+          <p>
+            A harmonia entre corpo e som é traduzida nesta obra em que a violinista se funde à própria música. As cores
+            vibram como notas que escapam da tela, e a luz se transforma em melodia um tributo à alma que vive através
+            da arte.
+          </p>
+          <!-- Descrição -->
+        </div>
+      </article>
+
+
+      <article class="card">
+        <!-- Um card de produto -->
+        <img src="../imageFIGURE/Passeio na chuva.jfif" />
+        <!-- Imagem do produto -->
+        <div class="card-content">
+          <!-- Conteúdo do card -->
+          <h4>Passeio na chuva</h4>
+          <!-- Nome do produto -->
+          <p>A150 × 80 cm.</p>
+          <!-- Dimensão -->
+          <p>Autor(a):Sônia Ribeiro.</p>
+          <p>
+            Um instante efêmero de ternura sob a chuva. A cena convida o observador a caminhar junto aos personagens,
+            sentindo o perfume da terra molhada e a melancolia das gotas que dançam sobre o colorido dos guarda-chuvas.
+          </p>
+          <!-- Descrição -->
+        </div>
+      </article>
+      <article class="card">
+        <!-- Um card de produto -->
+        <img src="../imageFIGURE/" />
+        <!-- Imagem do produto -->
+        <div class="card-content">
+          <!-- Conteúdo do card -->
+          <h4>Malenia</h4>
+          <!-- Nome do produto -->
+          <p>A29,7 × 21 cm.</p>
+          <!-- Dimensão -->
+          <p>Autor(a):Pablo Augusto Alves de Lima Scotti.</p>
+          <p>
+            Desenho de Malenia, Lâmina de Miquella. As sombras e texturas mostram um ótimo domínio do grafite, dando
+            profundidade e realismo à figura, que transmite força e mistério. </p>
+          <!-- Descrição -->
+        </div>
+      </article>
+      <article class="card">
+        <!-- Um card de produto -->
+        <img src="../imageFIGURE/DiegoBrando.jpeg" />
+        <!-- Imagem do produto -->
+        <div class="card-content">
+          <!-- Conteúdo do card -->
+          <h4>Diego Brando</h4>
+          <!-- Nome do produto -->
+          <p>A29,7 × 21 cm.</p>
+          <!-- Dimensão -->
+          <p>Autor(a):Pablo Augusto Alves de Lima Scotti.</p>
+          <p>
+            Diego Brando, feito com caneta e toques sutis de cor nos olhos, destaca o olhar intenso de um personagem com
+            traços firmes e expressivos. O estilo lembra arte de mangá, com linhas marcantes e hachuras bem aplicadas
+            que realçam o contraste e a emoção da cena. </p>
+          <!-- Descrição -->
+        </div>
+      </article>
+
+      <article class="card">
+        <!-- Um card de produto -->
+        <img src="../imageFIGURE/fotoart1.jpeg" />
+        <!-- Imagem do produto -->
+        <div class="card-content">
+          <!-- Conteúdo do card -->
+          <h4>Rosas do Firmamento</h4>
+          <!-- Nome do produto -->
+          <p>A130 × 100cm.</p>
+          <!-- Dimensão -->
+          <p>Autor(a): Sônia Ribeiro.</p>
+          <p>
+            Uma composição íntima onde rosas em tons suaves parecem flutuar num céu particular. A textura das pétalas e
+            o jogo de luz fazem com que a flor seja vista como uma constelação — fragmentos de memória e afeto que
+            orbitam em silêncio.
+          </p>
+          <!-- Descrição -->
+        </div>
+      </article>
+      <article class="card">
+        <!-- Um card de produto -->
+        <img src="../imageFIGURE/fotoart2.jpeg" />
+        <!-- Imagem do produto -->
+        <div class="card-content">
+          <!-- Conteúdo do card -->
+          <h4>Rosas da Aurora</h4>
+          <!-- Nome do produto -->
+          <p>A90 × 110 cm.</p>
+          <!-- Dimensão -->
+          <p>Autor(a): Sônia Ribeiro.</p>
+          <p>
+            Rosas brancas emergem com calma quase litúrgica, suas curvas iluminadas por uma claridade interior. A obra
+            convoca uma serenidade meditativa: cada gota e dobra revela um começo, um sopro de manhã suspenso.
+          </p>
+          <!-- Descrição -->
+        </div>
+      </article>
+      <article class="card">
+        <!-- Um card de produto -->
+        <img src="../imageFIGURE/fotoart3.jpeg" />
+        <!-- Imagem do produto -->
+        <div class="card-content">
+          <!-- Conteúdo do card -->
+          <h4>Rosas e Hortências</h4>
+          <!-- Nome do produto -->
+          <p>A150 × 60 cm.</p>
+          <!-- Dimensão -->
+          <p>Autor(a): Sônia Ribeiro.</p>
+          <p>
+            Delicadeza e harmonia se encontram nesta composição floral. As rosas e hortênsias dialogam entre si, criando
+            um contraste suave entre intensidade e leveza. A paleta de cores transmite serenidade, enquanto o jogo de
+            luz destaca a textura das pétalas, celebrando a fragilidade e a resistência presentes na natureza.
+          </p>
+          <!-- Descrição -->
+        </div>
+      </article>
+      <article class="card">
+        <!-- Um card de produto -->
+        <img src="../imageFIGURE/fotoart4.jpeg" />
+        <!-- Imagem do produto -->
+        <div class="card-content">
+          <!-- Conteúdo do card -->
+          <h4>Carroça de Primavera</h4>
+          <!-- Nome do produto -->
+          <p>A67 × 59 cm.</p>
+          <!-- Dimensão -->
+          <p>Autor(a): Sônia Ribeiro.</p>
+          <p>
+            Flores empilhadas sobre uma carroça transformam-se em um pequeno altar móvel, símbolo de dias de feira e
+            celebração. A composição mistura labor e devoção, evocando ritos cotidianos que carregam beleza e esperança.
+          </p>
+          <!-- Descrição -->
+        </div>
+      </article>
+      <article class="card">
+        <!-- Um card de produto -->
+        <img src="../imageFIGURE/fotoart5.jpeg" />
+        <!-- Imagem do produto -->
+        <div class="card-content">
+          <!-- Conteúdo do card -->
+          <h4>Minhas Inspirações</h4>
+          <!-- Nome do produto -->
+          <p>A120 × 80 cm.</p>
+          <!-- Dimensão -->
+          <p>Autor(a): Sônia Ribeiro.</p>
+          <p>
+            Nesta obra, a artista revela as fontes de sua sensibilidade e imaginação. Cada traço parece nascer de
+            lembranças, emoções e fragmentos do cotidiano que se transformam em cor e forma.
+          </p>
+          <!-- Descrição -->
+        </div>
+      </article>
+      <article class="card">
+        <!-- Um card de produto -->
+        <img src="../imageFIGURE/fotoart6.jpeg" />
+        <!-- Imagem do produto -->
+        <div class="card-content">
+          <!-- Conteúdo do card -->
+          <h4>Buquê do Crepúsculo</h4>
+          <!-- Nome do produto -->
+          <p>A90 × 60 cm.</p>
+          <!-- Dimensão -->
+          <p>Autor(a): Sônia Ribeiro.</p>
+          <p>
+            Um arranjo exuberante que parece ter sido colhido do encontro entre terra e luz. As pétalas retomam tons do
+            céu poente, formando um compêndio emocional onde o objeto decorre em silêncio, como um poema materializado.
+          </p>
+          <!-- Descrição -->
+        </div>
+      </article>
+      <article class="card">
+        <!-- Um card de produto -->
+        <img src="../imageFIGURE/fotoart7.jpeg" />
+        <!-- Imagem do produto -->
+        <div class="card-content">
+          <!-- Conteúdo do card -->
+          <h4>Meu Lugar</h4>
+          <!-- Nome do produto -->
+          <p>A90 × 60 cm.</p>
+          <!-- Dimensão -->
+          <p>Autor(a): Sônia Ribeiro.</p>
+          <p>
+            Nesta obra, o horizonte revela um instante de transição e harmonia. O sol se entrega ao mar, espalhando tons
+            dourados e lilases sobre a paisagem tropical. Sônia Ribeiro traduz esse encontro entre luz e água como um
+            gesto de paz e renovação.
+          </p>
+          <!-- Descrição -->
+        </div>
+      </article>
+      <article class="card">
+        <!-- Um card de produto -->
+        <img src="../imageFIGURE/fotoart8.jpeg" />
+        <!-- Imagem do produto -->
+        <div class="card-content">
+          <!-- Conteúdo do card -->
+          <h4>Contemplação ao Entardecer</h4>
+          <!-- Nome do produto -->
+          <p>A100 × 80 cm.</p>
+          <!-- Dimensão -->
+          <p>Autor(a): Sônia Ribeiro.</p>
+          <p>
+            A figura de costas, num gesto de pausa, abre espaço para a cena exterior: memórias que se acomodam como
+            móveis e pensamentos que repousam. A obra é uma pausa narrativa, um convite a escutar o mundo íntimo da
+            personagem.
+          </p>
+          <!-- Descrição -->
+        </div>
+      </article>
+    </div>
+  </section>
+  <footer>
+    <p>&copy; 2025 Domus SC - Todos os direitos reservados</p>
+  </footer>
+
+  <!-- Modal de visualização ampliada -->
+  <div id="modal" class="modal">
+    <span class="fechar">&times;</span>
+    <img class="modal-img" id="imgAmpliada" alt="Imagem ampliada">
+    <div id="caption"></div>
+  </div>
+
+  <script type="module" src="JavaScript/script.js"></script>
+</body>
+
+</html>

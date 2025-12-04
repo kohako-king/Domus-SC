@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Domus SC - Perfil do Artista</title>
+    <link rel="stylesheet" href="../estilo/perfil.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <!-- Cabeçalho -->
+    <header>
+      <h1>Domus SC</h1>
+      <nav>
+        <ul>
+          <li><a href="index.html">Início</a></li>
+          <li><a href="artistas.html">Artistas</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Perfil -->
+    <section class="perfil-container">
+      <div class="perfil-card">
+        <div class="perfil-header">
+          <!-- FOTO DE PERFIL EDITÁVEL -->
+          <div class="foto-perfil-container">
+            <img
+              id="fotoPerfil"
+              src="/imageFIGURE/"
+              alt="Foto do Artista"
+            />
+            <input type="file" id="inputFotoPerfil" accept="image/*" hidden />
+            <p class="texto-editar">Clique para alterar foto</p>
+          </div>
+
+          <div class="perfil-info">
+            <h2 id="nome_ART" class="nomeART"></h2>
+
+            <!-- Especialidade / Tipo (Opcional) -->
+            <p id="Special" class="especialidade"></p>
+
+            <!-- Descrição -->
+            <p id="BIO" class="bio"></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Obras -->
+      <div class="obras">
+        <div class="upload-section">
+          <button id="btnAdicionarObra" >
+            <i class="bi bi-plus-circle"></i> Adicionar Obra
+          </button>
+          <input type="file" id="inputImagem" accept="image/*" hidden />
+        </div>
+
+        <!-- Modal -->
+        <div id="modalEditor" class="modal">
+          <div class="modal-content">
+            <span id="fecharModal" class="close">&times;</span>
+            <h3>Editar Imagem</h3>
+
+            <div class="editor-container">
+              <img id="previewImagem" alt="Prévia da imagem" />
+            </div>
+
+            <div class="editor-controles">
+              <button id="zoomMais">+</button>
+              <button id="zoomMenos">-</button>
+              <button id="rotacionar">↻</button>
+              <button id="btnConcluir" class="btn-concluir">Concluir</button>
+            </div>
+          </div>
+        </div>
+
+        <h3>Obras Recentes</h3>
+
+        <div class="cards" id="listaObras">
+          <!-- O JS vai preencher automaticamente -->
+        </div>
+      </div>
+
+      <a href="artistas.html" class="btn-voltar">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="currentColor"
+          class="bi bi-arrow-left"
+          viewBox="0 0 16 16"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"
+          />
+        </svg>
+        Voltar
+      </a>
+    </section>
+
+    <footer>
+      <p>&copy; 2025 Domus SC - Todos os direitos reservados</p>
+    </footer>
+
+    <script type="module" src="JavaScript/perfil.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Admin — Domus SC (Modo Desenvolvedor)</title>
+    <!DOCTYPE html>
+    <html lang="pt-BR">
+
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <title>Admin — Domus SC (Modo Desenvolvedor)</title>
+        <style>
+            /* ===========================
+           RESET + BASE
+           =========================== */
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0
+            }
+
+            html,
+            body {
+                height: 100%
+            }
+
+            body {
+                font-family: "Poppins", Arial, sans-serif;
+                background: #0f0f0f;
+                color: #eee;
+                overflow: hidden;
+            }
+
+            /* ===========================
+           LAYOUT
+           =========================== */
+            #app {
+                display: flex;
+                height: 100vh;
+                width: 100%
+            }
+
+            .sidebar {
+                width: 260px;
+                background: #121417;
+                border-right: 1px solid #1f2227;
+                padding: 20px;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .brand {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                padding-bottom: 18px;
+                border-bottom: 1px solid #22262e
+            }
+
+            .brand h1 {
+                font-size: 1.05rem;
+                color: #0aa46a;
+                font-weight: 600
+            }
+
+            .nav ul {
+                list-style: none;
+                margin-top: 18px;
+                padding-left: 0
+            }
+
+            .nav li {
+                padding: 12px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                cursor: pointer;
+                border-radius: 6px;
+                transition: 0.12s;
+                background: transparent
+            }
+
+            .nav li:hover {
+                background: #1b1f26
+            }
+
+            .nav li.active {
+                background: #0aa46a;
+                color: #000
+            }
+
+            .sidebar-footer {
+                margin-top: auto;
+                display: flex;
+                flex-direction: column;
+                gap: 10px
+            }
+
+            .ghost {
+                background: transparent;
+                border: 1px solid #555;
+                padding: 8px;
+                border-radius: 6px;
+                color: #ccc
+            }
+
+            .danger {
+                background: #d62828;
+                color: white;
+                border: none;
+                padding: 8px;
+                border-radius: 6px
+            }
+
+            .main {
+                flex: 1;
+                overflow: auto;
+                background: #0d0f11
+            }
+
+            .topbar {
+                padding: 20px;
+                display: flex;
+                justify-content: space-between;
+                position: sticky;
+                top: 0;
+                background: #121417;
+                border-bottom: 1px solid #22262e;
+                z-index: 5
+            }
+
+            .content {
+                padding: 22px
+            }
+
+            .view.hidden {
+                display: none
+            }
+
+            /* ===========================
+           DASHBOARD / PANELS
+           =========================== */
+            .hero {
+                display: flex;
+                flex-direction: column;
+                gap: 16px
+            }
+
+            .welcome-card {
+                background: #121417;
+                padding: 18px;
+                border-radius: 10px;
+                border: 1px solid #1f2227
+            }
+
+            .stats {
+                display: flex;
+                gap: 14px
+            }
+
+            .stat-card {
+                flex: 1;
+                background: #16191f;
+                padding: 16px;
+                border-radius: 10px;
+                border: 1px solid #1f2227;
+                text-align: center
+            }
+
+            .stat-card h3 {
+                font-size: 1.8rem;
+                color: #0aa46a;
+                margin-bottom: 6px
+            }
+
+            .panel {
+                background: #121417;
+                padding: 16px;
+                border-radius: 10px;
+                border: 1px solid #1f2227;
+                margin-top: 14px
+            }
+
+            /* ===========================
+           TABLES
+           =========================== */
+            .table-wrap {
+                overflow-x: auto
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                color: #ddd
+            }
+
+            th {
+                background: #16191f;
+                padding: 12px;
+                text-align: left;
+                border-bottom: 2px solid #1f2227
+            }
+
+            td {
+                padding: 10px;
+                border-bottom: 1px solid #1f2227;
+                vertical-align: middle
+            }
+
+            tr:hover {
+                background: #1b1f26
+            }
+
+            .btn-editar {
+                background: #1976d2;
+                padding: 7px 10px;
+                border-radius: 6px;
+                color: white;
+                border: none;
+                cursor: pointer;
+            }
+
+            .btn-banir {
+                background: #d32f2f;
+                padding: 7px 10px;
+                border-radius: 6px;
+                color: white;
+                border: none;
+                cursor: pointer;
+            }
+
+            .btn-excluir {
+                background: #880e4f;
+                padding: 7px 10px;
+                border-radius: 6px;
+                color: white;
+                border: none;
+                cursor: pointer;
+            }
+
+            .btn-excluir-obra {
+                background: #c62828;
+                padding: 7px 10px;
+                border-radius: 6px;
+                color: white;
+                border: none;
+                cursor: pointer;
+            }
+
+            .btn-resolver {
+                background: #2e7d32;
+                padding: 7px 10px;
+                border-radius: 6px;
+                color: white;
+                border: none;
+                cursor: pointer;
+            }
+
+            .btn-remover-report {
+                background: #ad1457;
+                padding: 7px 10px;
+                border-radius: 6px;
+                color: white;
+                border: none;
+                cursor: pointer;
+            }
+
+            /* ===========================
+           MODAL
+           =========================== */
+            .modal {
+                position: fixed;
+                inset: 0;
+                display: none;
+                align-items: center;
+                justify-content: center;
+                background: rgba(0, 0, 0, 0.6);
+                z-index: 9999;
+            }
+
+            .modal.open {
+                display: flex;
+            }
+
+            .modal-content {
+                width: 420px;
+                background: #121417;
+                padding: 18px;
+                border-radius: 10px;
+                border: 1px solid #1f2227;
+            }
+
+            .modal-content input,
+            .modal-content textarea,
+            .modal-content select {
+                width: 100%;
+                padding: 10px;
+                margin: 8px 0;
+                border-radius: 6px;
+                border: 1px solid #333;
+                background: #1b1e23;
+                color: #fff;
+            }
+
+            .modal-actions {
+                display: flex;
+                justify-content: flex-end;
+                gap: 8px;
+                margin-top: 10px;
+            }
+
+            .modal-actions button.primary {
+                background: #0aa46a;
+                color: #000;
+                padding: 8px 12px;
+                border-radius: 6px;
+                border: none;
+                cursor: pointer;
+            }
+        </style>
+    </head>
+
+
+<body>
+    <div id="app" class="dark">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+            <div class="brand">
+                <div class="logo-box">
+                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="2" y="2" width="20" height="20" rx="4" fill="#0aa46a" />
+                        <path d="M6 12h12M12 6v12" stroke="#042018" stroke-width="1.4" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </div>
+                <h1>Domus SC — Admin</h1>
+            </div>
+
+            <nav class="nav">
+                <ul>
+                    <li data-view="dashboard" class="active"><span class="icon"><svg xmlns="http://www.w3.org/2000/svg"
+                                width="16" height="16" fill="currentColor" class="bi bi-speedometer2"
+                                viewBox="0 0 16 16">
+                                <path
+                                    d="M8 4a.5.5 0 0 1 .5.5V6a.5.5 0 0 1-1 0V4.5A.5.5 0 0 1 8 4M3.732 5.732a.5.5 0 0 1 .707 0l.915.914a.5.5 0 1 1-.708.708l-.914-.915a.5.5 0 0 1 0-.707M2 10a.5.5 0 0 1 .5-.5h1.586a.5.5 0 0 1 0 1H2.5A.5.5 0 0 1 2 10m9.5 0a.5.5 0 0 1 .5-.5h1.5a.5.5 0 0 1 0 1H12a.5.5 0 0 1-.5-.5m.754-4.246a.39.39 0 0 0-.527-.02L7.547 9.31a.91.91 0 1 0 1.302 1.258l3.434-4.297a.39.39 0 0 0-.029-.518z" />
+                                <path fill-rule="evenodd"
+                                    d="M0 10a8 8 0 1 1 15.547 2.661c-.442 1.253-1.845 1.602-2.932 1.25C11.309 13.488 9.475 13 8 13c-1.474 0-3.31.488-4.615.911-1.087.352-2.49.003-2.932-1.25A8 8 0 0 1 0 10m8-7a7 7 0 0 0-6.603 9.329c.203.575.923.876 1.68.63C4.397 12.533 6.358 12 8 12s3.604.532 4.923.96c.757.245 1.477-.056 1.68-.631A7 7 0 0 0 8 3" />
+                            </svg></span>Dashboard</li>
+                    <li data-view="usuarios"><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                height="16" fill="currentColor" class="bi bi-people" viewBox="0 0 16 16">
+                                <path
+                                    d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1zm-7.978-1L7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002-.014.002zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0M6.936 9.28a6 6 0 0 0-1.23-.247A7 7 0 0 0 5 9c-4 0-5 3-5 4q0 1 1 1h4.216A2.24 2.24 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816M4.92 10A5.5 5.5 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0m3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4" />
+                            </svg></span>Usuários</li>
+                    <li data-view="obras"><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                height="16" fill="currentColor" class="bi bi-card-image" viewBox="0 0 16 16">
+                                <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
+                                <path
+                                    d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2zm13 1a.5.5 0 0 1 .5.5v6l-3.775-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12v.54L1 12.5v-9a.5.5 0 0 1 .5-.5z" />
+                            </svg></span>Obras</li>
+                    <li data-view="conteudo"><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                height="16" fill="currentColor" class="bi bi-body-text" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M0 .5A.5.5 0 0 1 .5 0h4a.5.5 0 0 1 0 1h-4A.5.5 0 0 1 0 .5m0 2A.5.5 0 0 1 .5 2h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m9 0a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-9 2A.5.5 0 0 1 .5 4h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m5 0a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m7 0a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-12 2A.5.5 0 0 1 .5 6h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5m8 0a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-8 2A.5.5 0 0 1 .5 8h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m7 0a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-7 2a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1h-8a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5" />
+                            </svg></span>Conteúdo do Site</li>
+                    <li data-view="config"><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
+                                <path
+                                    d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0" />
+                                <path
+                                    d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z" />
+                            </svg></span>Configurações</li>
+                    <li data-view="logs"><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                height="16" fill="currentColor" class="bi bi-clock-history" viewBox="0 0 16 16">
+                                <path
+                                    d="M8.515 1.019A7 7 0 0 0 8 1V0a8 8 0 0 1 .589.022zm2.004.45a7 7 0 0 0-.985-.299l.219-.976q.576.129 1.126.342zm1.37.71a7 7 0 0 0-.439-.27l.493-.87a8 8 0 0 1 .979.654l-.615.789a7 7 0 0 0-.418-.302zm1.834 1.79a7 7 0 0 0-.653-.796l.724-.69q.406.429.747.91zm.744 1.352a7 7 0 0 0-.214-.468l.893-.45a8 8 0 0 1 .45 1.088l-.95.313a7 7 0 0 0-.179-.483m.53 2.507a7 7 0 0 0-.1-1.025l.985-.17q.1.58.116 1.17zm-.131 1.538q.05-.254.081-.51l.993.123a8 8 0 0 1-.23 1.155l-.964-.267q.069-.247.12-.501m-.952 2.379q.276-.436.486-.908l.914.405q-.24.54-.555 1.038zm-.964 1.205q.183-.183.35-.378l.758.653a8 8 0 0 1-.401.432z" />
+                                <path d="M8 1a7 7 0 1 0 4.95 11.95l.707.707A8.001 8.001 0 1 1 8 0z" />
+                                <path
+                                    d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5" />
+                            </svg></span>Logs</li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button id="btn-toggle-theme" class="ghost">Alternar tema</button>
+                <button id="btn-logout" class="danger">Sair</button>
+            </div>
+        </aside>
+
+        <!-- MAIN -->
+        <main class="main">
+            <header class="topbar">
+                <div class="welcome" id="welcomeMsg">Bem-vindo, admin</div>
+
+                <div class="search-area">
+                    <input type="search" id="globalSearch" placeholder="Pesquisar usuários, obras..." />
+                </div>
+            </header>
+
+            <section class="content" id="content">
+
+                <!-- DASHBOARD -->
+                <div class="view" id="view-dashboard">
+                    <div class="hero">
+                        <div class="welcome-card">
+                            <h2 id="devWelcomeTitle">Bem-vindo ao modo desenvolvedor</h2>
+                            <p id="devWelcomeSubtitle" class="muted">
+                                Atenção: ações do painel alteram os dados locais (LocalStorage).
+                            </p>
+                        </div>
+
+                        <div class="stats">
+                            <div class="stat-card">
+                                <h3 id="stat-users">—</h3>
+                                <p>Usuários</p>
+                            </div>
+
+                            <div class="stat-card">
+                                <h3 id="stat-artworks">—</h3>
+                                <p>Obras</p>
+                            </div>
+
+                            <div class="stat-card">
+                                <h3 id="stat-new-today">—</h3>
+                                <p>Novas hoje</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="recent-panels">
+                        <div class="panel">
+                            <h3>Últimos usuários</h3>
+                            <ul id="recentUsersList" class="list"></ul>
+                        </div>
+
+                        <div class="panel">
+                            <h3>Últimas obras</h3>
+                            <ul id="recentWorksList" class="list"></ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- USUÁRIOS -->
+                <div class="view hidden" id="view-usuarios">
+                    <div class="panel">
+                        <h3>Gerenciar Usuários</h3>
+
+                        <div class="toolbar">
+                            <input type="text" id="filterUsers" placeholder="Filtrar por nome / email / id" />
+                            <button id="btn-refresh-users">Atualizar</button>
+                            <button id="btn-add-user">Adicionar (stub)</button>
+                        </div>
+
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Foto</th>
+                                        <th>Nome</th>
+                                        <th>E-mail</th>
+                                        <th>Tipo</th>
+                                        <th>Bio</th>
+                                        <th>Obras</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="tabelaUsuarios"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- OBRAS -->
+                <div class="view hidden" id="view-obras">
+                    <div class="panel">
+                        <h3>Gerenciar Obras</h3>
+
+                        <div class="toolbar">
+                            <input type="text" id="filterWorks" placeholder="Filtrar por título / autor / categoria" />
+                            <button id="btn-refresh-works">Atualizar</button>
+                        </div>
+
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Título</th>
+                                        <th>Autor ID</th>
+                                        <th>Thumb</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="tabelaObras"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONTEÚDO -->
+                <div class="view hidden" id="view-conteudo">
+                    <div class="panel">
+                        <h3>Editar Conteúdo Público</h3>
+
+                        <p class="muted">
+                            Edite JSON de banners / cards localmente (stub).
+                        </p>
+
+                        <textarea id="bannerConfig" rows="6" placeholder='{"imagens":["/img1.jpg"],"texto":"..."}'
+                            style="width:100%;background:#0f1113;color:#ddd;padding:12px;border-radius:8px;border:1px solid #222">
+                        </textarea>
+
+                        <div class="toolbar">
+                            <button id="btn-save-banner">Salvar (stub)</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONFIGURAÇÕES -->
+                <div class="view hidden" id="view-config">
+                    <div class="panel">
+                        <h3>Configurações Gerais</h3>
+
+                        <div class="form-grid">
+                            <label>Nome do site <input id="cfgSiteName" /></label>
+                            <label>Logo URL <input id="cfgLogo" /></label>
+                            <label>Texto do rodapé <input id="cfgFooter" /></label>
+
+                            <label>Modo escuro forçado
+                                <select id="cfgForceDark">
+                                    <option value="auto">Auto</option>
+                                    <option value="on">On</option>
+                                    <option value="off">Off</option>
+                                </select>
+                            </label>
+
+                            <div class="toolbar">
+                                <button id="btn-save-config">Salvar configurações (stub)</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LOGS -->
+                <div class="view hidden" id="view-logs">
+                    <div class="panel">
+                        <h3>Logs de Ação</h3>
+
+                        <pre id="logArea" class="log-area"
+                            style="background:#0b0c0d;color:#cfcfcf;padding:12px;border-radius:8px">
+Nenhum log disponível.
+                        </pre>
+
+                        <div class="toolbar">
+                            <button id="btn-clear-logs">Limpar logs (local)</button>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </main>
+    </div>
+    <!-- MODAL EDIT USER (overlay + modal content) -->
+    <div id="modalOverlay" class="modal"></div>
+    <div id="modalEditarUsuario" class="modal">
+        <div class="modal-content">
+            <h3>Editar Usuário</h3>
+
+            <form id="formEditUser" onsubmit="return false;">
+                <input type="hidden" id="editUserId" />
+
+                <label>Nome
+                    <input id="editNome" />
+                </label>
+
+                <label>Email
+                    <input id="editEmail" />
+                </label>
+
+                <label>Tipo
+                    <select id="editTipo">
+                        <option value="visitante">visitante</option>
+                        <option value="artista">artista</option>
+                        <option value="admin">admin</option>
+                    </select>
+                </label>
+
+                <label>Telefone
+                    <input id="editTelefone" />
+                </label>
+
+                <label>Bio
+                    <textarea id="editDescricao"></textarea>
+                </label>
+
+                <div class="modal-actions">
+                    <button type="button" id="btnSalvarEdicao" class="primary">Salvar</button>
+                    <button type="button" id="btnCancelarEdicao">Cancelar</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+    <!-- ============================
+         SISTEMA ADM + LOCALDB
+         ============================ -->
+    <script>
+        /*************************************************************
+         LOCALDB — BANCO LOCAL COMPLETO (usuários, obras, reports)
+        *************************************************************/
+        const LocalDB = {
+            _k_users: "domus_users_v1",
+            _k_obras: "domus_obras_store_v1",
+            _k_reports: "domus_reports_v1",
+
+            initIfEmpty() {
+                if (!localStorage.getItem(this._k_users)) {
+                    const sampleUsers = [
+                        {
+                            id: 1,
+                            nome: "Admin Demo",
+                            email: "admin@domus.local",
+                            tipo: "admin",
+                            bio: "Administrador local",
+                            telefone: "",
+                            banido: false,
+                            createdAt: Date.now() - 86400000
+                        },
+                        {
+                            id: 2,
+                            nome: "Sônia Ribeiro",
+                            email: "sonia@example.com",
+                            tipo: "artista",
+                            bio: "Artista de testes",
+                            telefone: "48999999999",
+                            banido: false,
+                            createdAt: Date.now() - 3600000
+                        }
+                    ];
+                    localStorage.setItem(this._k_users, JSON.stringify(sampleUsers));
+                }
+
+                if (!localStorage.getItem(this._k_obras)) {
+                    const sample = {
+                        "2": [
+                            {
+                                id: 101,
+                                titulo: "Rosas do Firmamento",
+                                imagem: "https://via.placeholder.com/240x140?text=Rosas",
+                                autorId: 2,
+                                createdAt: Date.now() - 3600000
+                            }
+                        ]
+                    };
+                    localStorage.setItem(this._k_obras, JSON.stringify(sample));
+                }
+
+                if (!localStorage.getItem(this._k_reports)) {
+                    localStorage.setItem(this._k_reports, "[]");
+                }
+            },
+
+            // USERS
+            getUsers() {
+                try {
+                    return JSON.parse(localStorage.getItem(this._k_users) || "[]");
+                } catch {
+                    return [];
+                }
+            },
+            saveUsers(arr) {
+                localStorage.setItem(this._k_users, JSON.stringify(arr || []));
+            },
+            nextUserId() {
+                const u = this.getUsers();
+                return u.length ? Math.max(...u.map(x => x.id)) + 1 : 1;
+            },
+
+            // OBRAS
+            getObrasStore() {
+                try {
+                    return JSON.parse(localStorage.getItem(this._k_obras) || "{}");
+                } catch {
+                    return {};
+                }
+            },
+            saveObrasStore(o) {
+                localStorage.setItem(this._k_obras, JSON.stringify(o || {}));
+            },
+            getObrasByUser(id) {
+                return this.getObrasStore()[id] || [];
+            },
+            getAllObrasMerged() {
+                const store = this.getObrasStore();
+                const merged = [];
+                for (const uid in store) {
+                    (store[uid] || []).forEach(o => merged.push(o));
+                }
+                return merged;
+            },
+            nextObraId() {
+                const arr = this.getAllObrasMerged();
+                return arr.length ? Math.max(...arr.map(x => x.id)) + 1 : 1;
+            },
+
+            // REPORTS
+            getReports() {
+                try {
+                    return JSON.parse(localStorage.getItem(this._k_reports) || "[]");
+                } catch {
+                    return [];
+                }
+            },
+            saveReports(arr) {
+                localStorage.setItem(this._k_reports, JSON.stringify(arr || []));
+            },
+            nextReportId() {
+                const r = this.getReports();
+                return r.length ? Math.max(...r.map(x => x.id)) + 1 : 1;
+            }
+        };
+
+        /*************************************************************
+         SISTEMA ADM — COMPLETO E SEM ERROS
+        *************************************************************/
+        document.addEventListener("DOMContentLoaded", () => {
+            LocalDB.initIfEmpty();
+
+            // ELEMENTOS
+            const tabelaUsuarios = document.getElementById("tabelaUsuarios");
+            const tabelaObras = document.getElementById("tabelaObras");
+
+            const modalOverlay = document.getElementById("modalOverlay");
+            const modalEditarUsuario = document.getElementById("modalEditarUsuario");
+
+            const inputNome = document.getElementById("editNome");
+            const inputEmail = document.getElementById("editEmail");
+            const inputTipo = document.getElementById("editTipo");
+            const inputTelefone = document.getElementById("editTelefone");
+            const inputDescricao = document.getElementById("editDescricao");
+            const editUserIdInput = document.getElementById("editUserId");
+
+            const btnSalvar = document.getElementById("btnSalvarEdicao");
+            const btnCancelar = document.getElementById("btnCancelarEdicao");
+
+            const statUsers = document.getElementById("stat-users");
+            const statArtworks = document.getElementById("stat-artworks");
+            const statNewToday = document.getElementById("stat-new-today");
+
+            const recentUsersList = document.getElementById("recentUsersList");
+            const recentWorksList = document.getElementById("recentWorksList");
+
+            const logArea = document.getElementById("logArea");
+
+            /*****************************************************
+             Função de Log
+            *****************************************************/
+            function addLog(msg) {
+                const now = new Date().toLocaleString();
+                const prev = logArea.textContent === "Nenhum log disponível."
+                    ? ""
+                    : logArea.textContent + "\n";
+
+                logArea.textContent = `${now} — ${msg}\n${prev}`;
+            }
+
+            /*****************************************************
+             Navegação lateral (Views)
+            *****************************************************/
+            const navItems = document.querySelectorAll(".nav li");
+
+            function switchView(name) {
+                document.querySelectorAll(".view").forEach(v => v.classList.add("hidden"));
+                document.getElementById("view-" + name).classList.remove("hidden");
+
+                navItems.forEach(li => li.classList.toggle("active", li.dataset.view === name));
+            }
+
+            navItems.forEach(li => li.addEventListener("click", () => {
+                switchView(li.dataset.view);
+            }));
+
+            /*****************************************************
+             Carregar Usuários
+            *****************************************************/
+            function carregarUsuarios() {
+                const users = LocalDB.getUsers();
+                tabelaUsuarios.innerHTML = "";
+
+                if (!users.length) {
+                    tabelaUsuarios.innerHTML =
+                        "<tr><td colspan='8'>Nenhum usuário encontrado.</td></tr>";
+                    statUsers.textContent = 0;
+                    return;
+                }
+
+                statUsers.textContent = users.length;
+
+                const recent = users
+                    .slice()
+                    .sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0))
+                    .slice(0, 6);
+
+                recentUsersList.innerHTML = recent
+                    .map(u => `<li>${u.nome} — ${u.email}</li>`)
+                    .join("");
+
+                users.forEach(u => {
+                    tabelaUsuarios.insertAdjacentHTML(
+                        "beforeend",
+                        `
+                            <tr>
+                                <td>${u.id}</td>
+                                <td><img src="${u.avatar || "https://via.placeholder.com/60"}" class="table-thumb"/></td>
+                                <td>${u.nome}</td>
+                                <td>${u.email}</td>
+                                <td>${u.tipo}</td>
+                                <td>${u.bio || u.descricao || ""}</td>
+                                <td>${LocalDB.getObrasByUser(u.id).length}</td>
+
+                                <td>
+                                    <button class="btn-editar" data-id="${u.id}">Editar</button>
+                                    <button class="btn-banir" data-id="${u.id}">
+                                        ${u.banido ? "Desbanir" : "Banir"}
+                                    </button>
+                                    <button class="btn-excluir" data-id="${u.id}">Excluir</button>
+                                </td>
+                            </tr>
+                        `
+                    );
+                });
+            }
+
+            /*****************************************************
+             Carregar Obras
+            *****************************************************/
+            function carregarObras() {
+                const obras = LocalDB.getAllObrasMerged();
+                tabelaObras.innerHTML = "";
+
+                statArtworks.textContent = obras.length;
+
+                if (!obras.length) {
+                    tabelaObras.innerHTML =
+                        "<tr><td colspan='5'>Nenhuma obra encontrada.</td></tr>";
+                    return;
+                }
+
+                const recent = obras
+                    .slice()
+                    .sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0))
+                    .slice(0, 6);
+
+                recentWorksList.innerHTML = recent
+                    .map(o => `<li>${o.titulo} — ID ${o.id}</li>`)
+                    .join("");
+
+                obras.forEach(o => {
+                    tabelaObras.insertAdjacentHTML(
+                        "beforeend",
+                        `
+                        <tr>
+                            <td>${o.id}</td>
+                            <td>${o.titulo}</td>
+                            <td>${o.autorId}</td>
+                            <td><img src="${o.imagem}" class="table-thumb"/></td>
+                            <td>
+                                <button class="btn-excluir-obra" data-id="${o.id}">
+                                    Excluir
+                                </button>
+                            </td>
+                        </tr>
+                        `
+                    );
+                });
+            }
+
+            /*****************************************************
+             Clique Global — Editar / Banir / Excluir
+            *****************************************************/
+            document.addEventListener("click", e => {
+                const btn = e.target;
+
+                // EDITAR
+                if (btn.classList.contains("btn-editar")) {
+                    const id = Number(btn.dataset.id);
+                    const user = LocalDB.getUsers().find(u => u.id === id);
+                    if (!user) return alert("Usuário não encontrado.");
+
+                    editUserIdInput.value = id;
+                    inputNome.value = user.nome;
+                    inputEmail.value = user.email;
+                    inputTipo.value = user.tipo;
+                    inputTelefone.value = user.telefone || "";
+                    inputDescricao.value = user.bio || user.descricao || "";
+
+                    modalOverlay.classList.add("open");
+                    modalEditarUsuario.classList.add("open");
+                }
+
+                // BANIR / DESBANIR
+                if (btn.classList.contains("btn-banir")) {
+                    const id = Number(btn.dataset.id);
+                    const users = LocalDB.getUsers();
+                    const user = users.find(u => u.id === id);
+
+                    user.banido = !user.banido;
+                    LocalDB.saveUsers(users);
+
+                    addLog(`${user.banido ? "Usuário banido" : "Usuário desbanido"} — ${user.nome}`);
+                    carregarUsuarios();
+                }
+
+                // EXCLUIR USUÁRIO + OBRAS
+                if (btn.classList.contains("btn-excluir")) {
+                    if (!confirm("Excluir este usuário?")) return;
+
+                    const id = Number(btn.dataset.id);
+
+                    let users = LocalDB.getUsers();
+                    const removed = users.find(u => u.id === id);
+
+                    users = users.filter(u => u.id !== id);
+                    LocalDB.saveUsers(users);
+
+                    const store = LocalDB.getObrasStore();
+                    delete store[id];
+                    LocalDB.saveObrasStore(store);
+
+                    addLog(`Usuário excluído: ${removed?.nome || id}`);
+
+                    carregarUsuarios();
+                    carregarObras();
+                }
+
+                // EXCLUIR OBRA
+                if (btn.classList.contains("btn-excluir-obra")) {
+                    if (!confirm("Excluir esta obra?")) return;
+
+                    const id = Number(btn.dataset.id);
+                    const store = LocalDB.getObrasStore();
+
+                    for (const uid in store) {
+                        store[uid] = store[uid].filter(o => o.id !== id);
+                    }
+
+                    LocalDB.saveObrasStore(store);
+
+                    addLog(`Obra excluída (ID ${id})`);
+                    carregarObras();
+                }
+            });
+
+            /*****************************************************
+             Salvar Edição Usuário
+            *****************************************************/
+            btnSalvar.addEventListener("click", () => {
+                const id = Number(editUserIdInput.value);
+
+                const users = LocalDB.getUsers();
+                const user = users.find(u => u.id === id);
+
+                user.nome = inputNome.value.trim();
+                user.email = inputEmail.value.trim();
+                user.tipo = inputTipo.value;
+                user.telefone = inputTelefone.value.trim();
+                user.descricao = inputDescricao.value.trim();
+
+                LocalDB.saveUsers(users);
+                addLog(`Usuário editado (${user.nome})`);
+
+                modalOverlay.classList.remove("open");
+                modalEditarUsuario.classList.remove("open");
+
+                carregarUsuarios();
+            });
+
+            btnCancelar.addEventListener("click", () => {
+                modalOverlay.classList.remove("open");
+                modalEditarUsuario.classList.remove("open");
+            });
+
+            modalOverlay.addEventListener("click", () => {
+                modalOverlay.classList.remove("open");
+                modalEditarUsuario.classList.remove("open");
+            });
+
+            /*****************************************************
+             Carregar dados iniciais
+            *****************************************************/
+            carregarUsuarios();
+            carregarObras();
+        });
+    </script>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Domus SC - Artistas</title>
+    <link rel="stylesheet" href="../estilo/artistas.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <header>
+      <h1>Domus SC</h1>
+      <nav>
+        <ul>
+          <li><a href="index.html">Início</a></li>
+          <li><a href="artistas.html" class="pagina-ativa"></a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Banner -->
+    <section class="banner">
+      <h2>Descubra Artistas Catarinenses</h2>
+      <p>Explore o talento e as obras de artistas da nossa região.</p>
+    </section>
+
+    <!-- Banner / Slider -->
+    <section class="slider">
+      <div class="slides">
+        <!-- Slide 1 -->
+        <div
+          class="slide active"
+          style="background-image: url('/imageFIGURE/florianopolis-3.webp')"
+        >
+          <div class="slide-content">
+            <h2>Descubra Artistas Catarinenses</h2>
+            <p>Explore o talento e as obras de artistas da nossa região.</p>
+          </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div
+          class="slide"
+          style="
+            background-image: url('/imageFIGURE/florianopolis-mercado-publico.webp');
+          "
+        >
+          <div class="slide-content">
+            <h2>Arte que Inspira</h2>
+            <p>
+              Conheça as criações que moldam a identidade cultural de Santa
+              Catarina.
+            </p>
+          </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div
+          class="slide"
+          style="
+            background-image: url('/imageFIGURE/ponte-hercilio-luz-florianopolis.webp');
+          "
+        >
+          <div class="slide-content">
+            <h2>Novos Talentos</h2>
+            <p>
+              Descubra artistas emergentes e seus estilos únicos de expressão.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Botões de navegação -->
+      <button class="prev"><i class="bi bi-chevron-left"></i></button>
+      <button class="next"><i class="bi bi-chevron-right"></i></button>
+
+      <!-- Indicadores -->
+      <div class="indicators"></div>
+    </section>
+    <!-- Seção de artistas -->
+    <section id="produtos" class="produtos">
+      <h3>Artistas em Destaque</h3>
+      <div class="cards">
+        <!-- Card exemplo -->
+        <article class="card">
+          <img src="../imageFIGURE/perfil.jpeg" alt="Artista 2" />
+          <div class="card-content">
+            <h4>Sonia Ribeiro</h4>
+            <p>...</p>
+            <a href="perfil.html?id=2" class="btn-buy">Ver Obras</a>
+          </div>
+        </article>
+        <article class="card">
+          <img src="../imageFIGURE/fotoperfilPHS2.jpg" alt="Artista 1" />
+          <div class="card-content">
+            <h4>Pablo Henrique Serafim</h4>
+            <p>...</p>
+            <a href="perfil.html?id=1" class="btn-buy">Ver Obras</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <img src="../imageFIGURE/fotoperfilPAS.jpeg" alt="Artista 1" />
+          <div class="card-content">
+            <h4>Pablo Augusto Alves de Lima Scotti</h4>
+            <p>...</p>
+            <a href="perfil.html?id=1" class="btn-buy">Ver Obras</a>
+          </div>
+        </article>
+
+        <!-- Card exemplo -->
+
+        <!-- Adicione mais cards conforme necessário -->
+      </div>
+    </section>
+
+    <script src="JavaScript/ART.js"></script>
+
+    <!-- Rodapé -->
+    <footer>
+      <p>&copy; 2025 Domus SC - Todos os direitos reservados</p>
+    </footer>
+  </body>
+</html>

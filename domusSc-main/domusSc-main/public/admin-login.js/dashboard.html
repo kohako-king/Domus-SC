@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Painel Admin</h1>
+    <button id="logoutBtn">Sair</button>
+  </header>
+
+  <main>
+    <section>
+      <h2>Usuários</h2>
+      <div id="usersList"></div>
+    </section>
+
+    <section>
+      <h2>Obras</h2>
+      <div id="obrasList"></div>
+    </section>
+  </main>
+
+  <template id="userTpl">
+    <div class="item">
+      <div class="info"></div>
+      <div class="actions">
+        <button class="edit">Editar</button>
+        <button class="del">Excluir</button>
+      </div>
+    </div>
+  </template>
+
+  <script src="/js/admin-dashboard.js"></script>
+</body>
+</html>

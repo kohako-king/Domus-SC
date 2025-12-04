@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+
+
+
+  <meta charset="UTF-8" />
+
+
+
+
+
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+  <title>Login / Cadastro</title>
+
+
+
+
+
+
+
+  <style>
+    * {
+
+
+
+      margin: 0;
+
+
+
+      padding: 0;
+
+
+
+      box-sizing: border-box;
+
+
+
+      font-family: "Segoe UI", Tahoma;
+
+
+
+    }
+
+
+
+
+
+
+
+    body {
+
+
+
+      min-height: 100vh;
+
+
+
+      width: 100%;
+
+
+
+      display: flex;
+
+
+
+      justify-content: center;
+
+
+
+      align-items: flex-start;
+
+
+
+      overflow-y: auto;
+
+
+
+      overflow-x: hidden;
+
+
+
+      background: linear-gradient(180deg, #2d583e 0%, #163d28 100%);
+
+
+
+      background-size: 300% 300%;
+
+
+
+      animation: gradientMove 10s ease-in-out infinite alternate;
+
+
+
+      color: #f0f0f0;
+
+
+
+      padding: 40px 20px;
+
+
+
+    }
+
+
+
+
+
+
+
+    @keyframes gradientMove {
+
+
+
+      0% {
+
+
+
+        background-position: 0% 50%;
+
+
+
+      }
+
+
+
+
+
+
+
+      100% {
+
+
+
+        background-position: 100% 50%;
+
+
+
+      }
+
+
+
+    }
+
+
+
+
+
+
+
+    .hidden {
+
+
+
+      display: none !important;
+
+
+
+    }
+
+
+
+
+
+
+
+    /* Cabeçalho */
+
+
+
+    .cabecario {
+
+
+
+      position: fixed;
+
+
+
+      top: 20px;
+
+
+
+      width: 100%;
+
+
+
+      text-align: center;
+
+
+
+      z-index: 10;
+
+
+
+    }
+
+
+
+
+
+
+
+    .logo-cabecario h1 {
+
+
+
+      color: #05ff97d0;
+
+
+
+      font-size: 2.2rem;
+
+
+
+      text-shadow: 0 0 10px rgba(11, 139, 112, 0.5);
+
+
+
+    }
+
+
+
+
+
+
+
+    /* Container principal */
+
+
+
+    .boxlogin {
+
+
+
+      background: rgba(36, 145, 121, 0.5);
+
+
+
+      padding: 50px 60px;
+
+
+
+      border-radius: 20px;
+
+
+
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+
+
+
+      backdrop-filter: blur(12px);
+
+
+
+      border: 1px solid rgba(11, 139, 112, 0.5);
+
+
+
+      margin-top: 140px;
+
+
+
+      width: 100%;
+
+
+
+      max-width: 900px;
+
+
+
+      display: flex;
+
+
+
+      flex-direction: column;
+
+
+
+      align-items: center;
+
+
+
+      transition: all 0.4s ease;
+
+
+
+    }
+
+
+
+
+
+
+
+    .boxlogin.artista-ativo {
+
+
+
+      max-height: 1000px;
+
+
+
+      transition: max-height 0.5s ease-in-out;
+
+
+
+    }
+
+
+
+
+
+
+
+    /* Switcher */
+
+
+
+    .switcher {
+
+
+
+      display: flex;
+
+
+
+      justify-content: center;
+
+
+
+      gap: 60px;
+
+
+
+      margin-bottom: 35px;
+
+
+
+    }
+
+
+
+
+
+
+
+    .switcher input {
+
+
+
+      display: none;
+
+
+
+    }
+
+
+
+
+
+
+
+    .switcher label {
+
+
+
+      font-weight: 700;
+
+
+
+      font-size: 1.25rem;
+
+
+
+      cursor: pointer;
+
+
+
+      color: #aaa;
+
+
+
+      opacity: 0.6;
+
+
+
+      transition: all 0.3s ease;
+
+
+
+    }
+
+
+
+
+
+
+
+    .switcher input:checked+label {
+
+
+
+      color: #06a362;
+
+
+
+      opacity: 1;
+
+
+
+      transform: scale(1.1);
+
+
+
+    }
+
+
+
+
+
+
+
+    /* Form */
+
+
+
+    form {
+
+
+
+      width: 100%;
+
+
+
+    }
+
+
+
+
+
+
+
+    .form-group {
+
+
+
+      margin-bottom: 22px;
+
+
+
+      display: flex;
+
+
+
+      flex-direction: column;
+
+
+
+    }
+
+
+
+
+
+
+
+    label {
+
+
+
+      font-weight: 600;
+
+
+
+      margin-bottom: 8px;
+
+
+
+    }
+
+
+
+
+
+
+
+    .input-field {
+
+
+
+      padding: 14px 18px;
+
+
+
+      border: none;
+
+
+
+      border-radius: 12px;
+
+
+
+      background-color: rgba(255, 255, 255, 0.15);
+
+
+
+      color: #fff;
+
+
+
+      transition: all 0.3s ease;
+
+
+
+    }
+
+
+
+
+
+
+
+    /* Toggle artista */
+
+
+
+    .artist-toggle {
+
+
+
+      display: flex;
+
+
+
+      align-items: center;
+
+
+
+      gap: 10px;
+
+
+
+      margin: 15px 0;
+
+
+
+      color: white;
+
+
+
+    }
+
+
+
+
+
+
+
+    /* Campos artista */
+
+
+
+    #artistFields {
+
+
+
+      width: 100%;
+
+
+
+      display: none;
+
+
+
+      flex-wrap: wrap;
+
+
+
+      gap: 20px;
+
+
+
+      margin-top: 20px;
+
+
+
+      opacity: 0;
+
+
+
+      transform: translateY(10px);
+
+
+
+    }
+
+
+
+
+
+
+
+    #artistFields.visible {
+
+
+
+      display: flex !important;
+
+
+
+      animation: fadeIn 0.45s ease-out forwards;
+
+
+
+    }
+
+
+
+
+
+
+
+    @keyframes fadeIn {
+
+
+
+      from {
+
+
+
+        opacity: 0;
+
+
+
+        transform: translateY(10px);
+
+
+
+      }
+
+
+
+
+
+
+
+      to {
+
+
+
+        opacity: 1;
+
+
+
+        transform: translateY(0);
+
+
+
+      }
+
+
+
+    }
+
+
+
+
+
+
+
+    #artistFields .form-group {
+
+
+
+      flex: 1 1 calc(50% - 20px);
+
+
+
+      min-width: 250px;
+
+
+
+    }
+
+
+
+
+
+
+
+    /* Botão */
+
+
+
+    button {
+
+
+
+      margin-top: 30px;
+
+
+
+      width: 100%;
+
+
+
+      padding: 16px 0;
+
+
+
+      background: linear-gradient(135deg, #13ca50b9);
+
+
+
+      border: none;
+
+
+
+      border-radius: 14px;
+
+
+
+      font-size: 1.25rem;
+
+
+
+      font-weight: 700;
+
+
+
+      cursor: pointer;
+
+
+
+    }
+
+
+
+
+
+
+
+    #msg {
+
+
+
+      color: yellow;
+
+
+
+      text-align: center;
+
+
+
+      margin-top: 10px;
+
+
+
+    }
+  </style>
+
+
+
+</head>
+
+
+
+
+
+
+
+<body>
+
+
+
+  <header class="cabecario">
+
+
+
+    <div class="logo-cabecario">
+
+
+
+      <h1>Domus SC</h1>
+
+
+
+    </div>
+
+
+
+  </header>
+
+
+
+
+
+
+
+  <main class="boxlogin">
+
+
+
+    <div class="switcher">
+
+
+
+      <input type="radio" id="login" name="mode" value="login" checked>
+
+
+
+      <label for="login">Login</label>
+
+
+
+
+
+
+
+      <input type="radio" id="cadastro" name="mode" value="cadastro">
+
+
+
+      <label for="cadastro">Cadastro</label>
+
+
+
+    </div>
+
+
+
+
+
+
+
+    <form id="authForm">
+
+
+
+      <div class="form-group">
+
+
+
+        <label>Email:</label>
+
+
+
+        <input class="input-field" type="email" id="email" required>
+
+
+
+      </div>
+
+
+
+
+
+
+
+      <div class="form-group">
+
+
+
+        <label>Senha:</label>
+
+
+
+        <input class="input-field" type="password" id="password" required>
+
+
+
+      </div>
+
+
+
+
+
+
+
+      <div class="form-group hidden" id="passwordGroup2">
+
+
+
+        <label>Confirmar Senha:</label>
+
+
+
+        <input class="input-field" type="password" id="confirmPassword">
+
+
+
+      </div>
+
+
+
+
+
+
+
+      <div id="artistToggle" class="hidden artist-toggle">
+
+
+
+        <input type="checkbox" id="isArtist">
+
+
+
+        <label for="isArtist">Quero me cadastrar como Artista</label>
+
+
+
+      </div>
+
+
+
+
+
+
+
+      <div id="artistFields" class="hidden">
+
+
+
+        <div class="form-group"><label>Nome:</label><input class="input-field" id="nome"></div>
+
+
+
+        <div class="form-group"><label>Sobrenome:</label><input class="input-field" id="sobrenome"></div>
+
+
+
+        <div class="form-group"><label>Idade:</label><input class="input-field" type="number" id="idade"></div>
+
+
+
+        <div class="form-group"><label>Descrição:</label><textarea class="input-field" id="descricao"></textarea></div>
+
+
+
+        <div class="form-group"><label>Telefone:</label><input class="input-field" id="telefone"></div>
+
+
+
+        <div class="form-group"><label>Foto:</label><input type="file" id="foto" accept="image/*"></div>
+
+
+
+      </div>
+
+
+
+
+
+
+
+      <button type="submit" id="btnSubmit">Entrar</button>
+
+
+
+      <p id="msg"></p>
+
+
+
+    </form>
+
+
+
+  </main>
+
+
+
+
+
+
+
+
+
+
+<script type="module">
+    // ==========================================================
+    // ================ IMPORTAÇÕES DO FIREBASE =================
+    // ==========================================================
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+    import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
+
+    // ==========================================================
+    // ================== FIREBASE CONFIG =======================
+    // ⚠️ SUBSTITUA OS VALORES ABAIXO PELOS SEUS DADOS REAIS DO PROJETO FIREBASE! ⚠️
+    // ==========================================================
+    const firebaseConfig = {
+      apiKey: "AIzaSyBWNqPRVksBMahDk-yR9p8hUMOxkZSYq6Y",
+      authDomain: "domus-f0f1e.firebaseapp.com",
+      projectId: "domus-f0f1e",
+      storageBucket: "domus-f0f1e.appspot.com", // CORRETO: Use o appspot.com para Storage
+      messagingSenderId: "596298855370",
+      appId: "1:596298855370:web:b61e8ddb93258323aa5533",
+    };
+
+    // Inicializa os clientes
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const storage = getStorage(app); 
+
+    // Variáveis do DOM
+    const radios = document.querySelectorAll('input[name="mode"]');
+    const passGroup2 = document.getElementById("passwordGroup2");
+    const artistToggle = document.getElementById("artistToggle");
+    const artistFields = document.getElementById("artistFields");
+    const isArtist = document.getElementById("isArtist");
+    const btnSubmit = document.getElementById("btnSubmit");
+    const msg = document.getElementById("msg");
+
+
+    // ==========================================================
+    // ============ FUNÇÃO DE UPLOAD ATUALIZADA =================
+    // ⚠️ Retorna a URL E o nome do arquivo para o Firestore!
+    // ==========================================================
+    /**
+    * Faz o upload para o FIREBASE Storage e retorna a URL pública e o nome do arquivo.
+    * @param {File} file - O arquivo de imagem
+    * @param {string} userId - O UID do usuário do Firebase
+    * @returns {Promise<{url: string, filename: string}|null>} Objeto com URL e nome do arquivo.
+    */
+    async function uploadImageToFirebaseStorage(file, userId) {
+      
+      const fileName = `profile_${Date.now()}_${file.name}`; // Nome do arquivo exclusivo
+      const storagePath = `users/${userId}/${fileName}`;
+      const storageRef = ref(storage, storagePath);
+
+      try {
+        await uploadBytes(storageRef, file);
+        const downloadURL = await getDownloadURL(storageRef);
+
+        // RETORNA UM OBJETO COM AMBAS AS INFORMAÇÕES
+        return {
+          url: downloadURL,
+          filename: fileName 
+        };
+
+      } catch (error) {
+        console.error("Erro no upload para o Firebase Storage:", error);
+        msg.textContent = "Erro ao carregar a foto no Firebase Storage. Verifique suas regras.";
+        return null;
+      }
+    }
+    // ==========================================================
+
+    function toggleArtistFields(show) {
+      if (show) {
+        artistFields.classList.add("visible");
+        artistFields.classList.remove("hidden");
+        document.querySelector('.boxlogin')?.classList.add('artista-ativo');
+      } else {
+        artistFields.classList.remove("visible");
+        artistFields.classList.add("hidden");
+        document.querySelector('.boxlogin')?.classList.remove('artista-ativo');
+      }
+    }
+
+    radios.forEach(r => {
+      r.addEventListener("change", e => {
+        if (e.target.value === "cadastro") {
+          passGroup2.classList.remove("hidden");
+          artistToggle.classList.remove("hidden");
+          btnSubmit.textContent = "Cadastrar";
+          toggleArtistFields(isArtist.checked);
+        } else {
+          passGroup2.classList.add("hidden");
+          artistToggle.classList.add("hidden");
+          toggleArtistFields(false);
+          isArtist.checked = false;
+          btnSubmit.textContent = "Entrar";
+        }
+      });
+    });
+
+    isArtist.addEventListener("change", e => {
+      toggleArtistFields(e.target.checked);
+    });
+
+    // ==========================================================
+    // =========== LISTENER DE SUBMISSÃO CORRIGIDO ==============
+    // ==========================================================
+    document.getElementById("authForm").addEventListener("submit", async e => {
+
+      e.preventDefault();
+      msg.textContent = "Carregando...";
+
+      const mode = document.querySelector('input[name="mode"]:checked').value;
+      const email = document.getElementById("email").value;
+      const pass = document.getElementById("password").value;
+
+      try {
+
+        if (mode === "login") {
+          // Lógica de Login (Firebase Auth)
+          await signInWithEmailAndPassword(auth, email, pass);
+          window.location.href = "index.html";
+          msg.textContent = "";
+
+        } else {
+          // Lógica de Cadastro
+          const confirmPass = document.getElementById("confirmPassword").value;
+          if (pass !== confirmPass) {
+            msg.textContent = "Senhas não conferem";
+            return;
+          }
+
+          // 1. Cria a conta no Firebase Auth
+          const cred = await createUserWithEmailAndPassword(auth, email, pass);
+          const user = cred.user; // O UID é obtido aqui!
+
+          const isUserArtist = isArtist.checked;
+          let imageUrl = null; 
+          let imageFilename = null; // ONDE O NOME DO ARQUIVO SERÁ SALVO
+
+          // 2. Processa o upload da foto SE for artista
+          if (isUserArtist) {
+            const fileInput = document.getElementById("foto");
+            if (fileInput.files.length > 0) {
+              msg.textContent = "Carregando foto (via Firebase Storage)...";
+              const file = fileInput.files[0];
+
+              // === CHAMA A FUNÇÃO DE UPLOAD ATUALIZADA ===
+              const uploadResult = await uploadImageToFirebaseStorage(file, user.uid);
+              
+              if (uploadResult) {
+                imageUrl = uploadResult.url;
+                imageFilename = uploadResult.filename; // Salva o nome do arquivo
+                msg.textContent = "Foto carregada. Finalizando cadastro no Firestore...";
+              }
+            }
+          }
+
+          // 3. Coleta dados e Cria o objeto de dados final
+          let dados = {
+            uid: user.uid,
+            email,
+            tipo: isUserArtist ? "artista" : "visitante",
+            createdAt: new Date().toISOString(),
+            nome: document.getElementById("nome").value.trim() || (isUserArtist ? "" : "Visitante"),
+            sobrenome: document.getElementById("sobrenome").value.trim() || "",
+            idade: document.getElementById("idade").value.trim() || null,
+            descricao: document.getElementById("descricao").value.trim() || "",
+            telefone: document.getElementById("telefone").value.trim() || null,
+            
+            // CAMPOS DA IMAGEM ATUALIZADOS:
+            imagem_perfil_url: imageUrl, 
+            imagem_perfil_filename: imageFilename // NOME DA IMAGEM SALVO AQUI
+          };
+
+          // 4. Salva todos os dados no Firestore (garantindo que o documento seja criado)
+          await setDoc(doc(db, "users", user.uid), dados);
+
+          msg.textContent = "";
+          alert("Cadastro realizado com sucesso!");
+          window.location.href = "index.html";
+        }
+
+      } catch (err) {
+        console.error("Erro no processo de Auth/Firestore/Storage:", err);
+
+        let errorMessage = "Erro desconhecido. Tente novamente.";
+
+        if (err.code === 'auth/email-already-in-use') {
+          errorMessage = "Este email já está cadastrado.";
+        } else if (err.code && err.code.startsWith('auth/')) {
+          errorMessage = err.message;
+        } else if (err.message) {
+          errorMessage = err.message;
+        }
+
+        msg.textContent = "Erro: " + errorMessage;
+      }
+    });
+</script>
+</body>
+
+</html>

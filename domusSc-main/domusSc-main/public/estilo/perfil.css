@@ -1,0 +1,312 @@
+/* Reset e fontes */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background: linear-gradient(180deg, #2d583e 0%);
+  color: #333;
+  line-height: 1.6;
+}
+
+/* Cabeçalho */
+header {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  transition: all 0.3s ease;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+header h1 {
+  font-size: 1.8rem;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+}
+nav ul li a {
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  position: relative;
+  transition: color 0.3s ease;
+}
+nav ul li a::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: #06a362;
+  transition: width 0.3s;
+}
+nav ul li a:hover::after {
+  width: 100%;
+}
+nav ul li a:hover {
+  color: #06a362;
+}
+
+/* Container do perfil */
+.perfil-container {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+/* Card do artista */
+.perfil-card {
+  background: linear-gradient(180deg, #466356 0%);
+  border-radius: 15px;
+  padding: 40px 30px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  margin-bottom: 40px;
+}
+
+.perfil-header {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  flex-wrap: wrap;
+  justify-content: center;
+  text-align: center;
+}
+
+.perfil-header img {
+  width: 170px;
+  height: 170px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 5px solid #223a32;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.perfil-info {
+  flex: 1;
+  max-width: 600px;
+}
+
+.perfil-info h2 {
+  font-size: 2.2rem;
+  margin-bottom: 8px;
+  color: #222;
+}
+BtnAdicionarObra
+
+.perfil-info .especialidade {
+  color: #000000;
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+
+.perfil-info .bio {
+  font-style: italic;
+  color: #555;
+  font-size: 1rem;
+}
+
+/* Obras */
+.obras h3 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2rem;
+  color: #222;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+}
+
+.card {
+  background-color: rgba(5, 78, 54, 0.603);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+}
+
+.card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+.card-content {
+  background: linear-gradient(180deg, #466356 0%);
+  padding: 20px;
+  text-align: center;
+}
+
+/* Botão voltar */
+.btn-voltar {
+  display: block;
+  width: fit-content;
+  margin: 40px auto 0;
+  background-color: #06a362;
+  color: white;
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+.btn-voltar:hover {
+  background-color: #5248d4;
+}
+
+/* Rodapé */
+footer {
+  background-color: #222;
+  color: white;
+  padding: 25px 40px;
+  text-align: center;
+  margin-top: 60px;
+}
+
+/* Botão de upload */
+.upload-section {
+  text-align: center;
+  margin: 30px 0;
+}
+
+#btnAdicionarObra {
+  z-index: 99;
+  background-color: #6c63ff;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+#btnAdicionarObra:hover {
+  background-color: #5248d4;
+}
+
+/* Modal de edição */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.modal-content {
+  background: white;
+  margin: 5% auto;
+  padding: 20px;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 600px;
+  text-align: center;
+}
+
+.close {
+  float: right;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #555;
+}
+
+.editor-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+
+#previewImagem {
+  max-width: 100%;
+  max-height: 400px;
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+.editor-controles {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.editor-controles button {
+  background-color: #6c63ff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s   ease;
+}
+
+.editor-controles button:hover {
+  background-color: #5248d4;
+}
+
+.btn-concluir {
+  background-color: #28a745;
+}
+
+.btn-concluir:hover {
+  background-color: #1e7e34;
+}
+
+
+/* Área da foto de perfil clicável */
+.foto-perfil-container {
+  position: relative;
+  display: inline-block;
+  text-align: center;
+}
+
+.foto-perfil-container img {
+  width: 170px;
+  height: 170px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 5px solid #6c63ff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: transform 0.3s, filter 0.3s;
+}
+
+.foto-perfil-container img:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+
+.foto-perfil-container .texto-editar {
+  font-size: 0.9rem;
+  color: #6c63ff;
+  margin-top: 8px;
+}
